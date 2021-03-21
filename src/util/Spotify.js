@@ -1,6 +1,6 @@
 
 const CLIENT_ID = "d78f0268d75c4e1dbf1078db42bdc848"
-const REDIRECT_URI = "http://localhost:3000"
+const REDIRECT_URI = "http://plator.surge.sh"
 const url = "https://api.spotify.com/v1/search?type=track"
 let accessToken;
 let expiresIn;
