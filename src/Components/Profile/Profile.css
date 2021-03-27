@@ -1,0 +1,16 @@
+.ProfileDiv {
+    display: flex;
+    margin: 5em 0 0 0;;
+    max-width: fit-content;
+    background-color: rgba(128, 0, 128, 0.6);
+    border-radius: 50px;
+    align-items: center;
+    overflow: hidden;
+}
+.ProfileDiv img {
+    max-height: 5rem;
+    border-radius: 50%;
+}
+.ProfileDiv h2 {
+    margin: 0 1em
+}
