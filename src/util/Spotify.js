@@ -1,11 +1,30 @@
 
 const CLIENT_ID = "d78f0268d75c4e1dbf1078db42bdc848"
-const REDIRECT_URI = "http://plator.surge.sh"
+const REDIRECT_URI = "http://localhost:3000"
 const url = "https://api.spotify.com/v1/search?type=track"
 let accessToken;
 let expiresIn;
-    
+var user_id;
+var username;
+var userImgUrl;
+
 const Spotify = {
+
+    async getUserInfo() {
+        if(user_id) return user_id
+        try {
+            let getUserID = await fetch("https://api.spotify.com/v1/me", {headers: {Authorization: `Bearer ${accessToken}`}})
+            if (getUserID.ok) {
+                let responseJson = await getUserID.json()
+                user_id = responseJson.id
+                username = responseJson.display_name
+                userImgUrl = responseJson.images[0].url
+            }
+        } catch(err) {
+            console.log(err)
+        }
+        return [username, userImgUrl]
+    },
 
     getAccessToken() {
         if (accessToken) return accessToken;
@@ -13,18 +32,17 @@ const Spotify = {
         var expiresIn_match = window.location.href.match(/expires_in=([^&]*)/)
 
         if(accessToken_match && expiresIn_match) {
-            
+                        
             expiresIn = Number(expiresIn_match[1]);
             accessToken = accessToken_match[1]
             window.setTimeout(() => accessToken = '', expiresIn * 1000);
             window.history.pushState('Access Token', null, '/');
+           
             return accessToken
+
         } else {
             window.location = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${REDIRECT_URI}/&scope=playlist-modify-public`   
         }
-
-        
-
     },
     async search(searchTerm) {
         let urlToFetch = `${url}&q=${searchTerm}`
@@ -39,7 +57,8 @@ const Spotify = {
                         album: item.album.name,
                         name: item.name,
                         artist: item.artists[0].name,
-                        uri: item.uri
+                        uri: item.uri,
+                        preview_url: item.preview_url
                     }
                 })
             }
@@ -53,15 +72,9 @@ const Spotify = {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json"
         }
-        var user_id;
         var playlist_id;
         try {
-            let getUserID = await fetch("https://api.spotify.com/v1/me", {headers: headers})
-
-            if (getUserID.ok) {
-                let responseJson = await getUserID.json()
-                user_id = responseJson.id
-            }
+           
 
             let getPlaylistID = await fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
                 headers: headers,

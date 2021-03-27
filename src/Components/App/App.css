@@ -27,6 +27,10 @@ h2 {
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
   height: 100%;
   padding: 0 17% 10% 17%;
   background-image: url('./background_photo_desktop.jpg');

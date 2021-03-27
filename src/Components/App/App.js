@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults'
 import Playlist from '../Playlist/Playlist'
 import Spotify from '../../util/Spotify'
-
+import Profile from '../Profile/Profile'
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +12,9 @@ class App extends React.Component {
     this.state = { 
       searchResults: [],
       playlistName: "New Playlist",
-      playlistTracks: []
+      playlistTracks: [],
+      username: '',
+      userImg: null
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -21,8 +23,10 @@ class App extends React.Component {
     this.savePlaylist = this.savePlaylist.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     Spotify.getAccessToken()
+    let UserInfo = await Spotify.getUserInfo()
+    this.setState({ username: UserInfo[0], userImg: UserInfo[1]})
   }
 
   addTrack(track) {
@@ -62,7 +66,9 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
+          <Profile username={this.state.username} imageSrc={this.state.userImg}/>
           <SearchBar
+          onConnect={this.connectSpotify}
           onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults 
