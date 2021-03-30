@@ -11,8 +11,6 @@ class Track extends React.Component {
         this.handlePause = this.handlePause.bind(this)
     }
     handlePause() {
-        console.log("durduruldum state guncellenmis olmali")
-        console.log(`ben buyum: ${this.props.track.name}`)
         this.setState({previewIsPlaying: false})
     }
     renderPreview() {
@@ -74,8 +72,14 @@ class Track extends React.Component {
         return (
             <div className="Track">
                 <div className="Track-information">
-                    <h3>{this.props.track.name}</h3>
-                    <p>{this.props.track.artist} | {this.props.track.album}</p>
+                    <div className="track-info">
+                        {this.props.track.albumImgSrc ? <img style={{display: 'inline-block'}} src={this.props.track.albumImgSrc} height="40px" width="40px" alt="track"/> : ''}
+                        <div>
+                            <h3>{this.props.track.name}</h3>
+                            <p>{this.props.track.artist} | {this.props.track.album}</p>
+                        </div>
+                    </div>
+                    
                 </div>
                 {this.renderPreview()}
                 {this.renderAction()}

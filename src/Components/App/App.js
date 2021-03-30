@@ -6,6 +6,7 @@ import Playlist from '../Playlist/Playlist'
 import Spotify from '../../util/Spotify'
 import Profile from '../Profile/Profile'
 
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -14,7 +15,8 @@ class App extends React.Component {
       playlistName: "New Playlist",
       playlistTracks: [],
       username: '',
-      userImg: null
+      userImg: null,
+      albumImgSrc: null
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -22,11 +24,15 @@ class App extends React.Component {
     this.search = this.search.bind(this)
     this.savePlaylist = this.savePlaylist.bind(this);
   }
+  connectSpotify() {
+    Spotify.getAccessToken()
+  }
 
   async componentDidMount() {
-    Spotify.getAccessToken()
-    let UserInfo = await Spotify.getUserInfo()
-    this.setState({ username: UserInfo[0], userImg: UserInfo[1]})
+    if(Spotify.getUrlMatches()) {
+      let UserInfo = await Spotify.getUserInfo()
+      this.setState({ username: UserInfo[0], userImg: UserInfo[1]})
+    }
   }
 
   addTrack(track) {
@@ -52,7 +58,6 @@ class App extends React.Component {
     }
     this.setState({ playlistTracks: [], playlistName: "New Playlist"})
   }
-
   async search(searchTerm) {
     if(!searchTerm) return;
     let searchResults = await Spotify.search(searchTerm)
@@ -61,6 +66,8 @@ class App extends React.Component {
     }
   }
 
+
+
   render() {
     return (
       <div>
@@ -68,6 +75,7 @@ class App extends React.Component {
         <div className="App">
           <Profile username={this.state.username} imageSrc={this.state.userImg}/>
           <SearchBar
+          username={this.state.username}
           onConnect={this.connectSpotify}
           onSearch={this.search} />
           <div className="App-playlist">

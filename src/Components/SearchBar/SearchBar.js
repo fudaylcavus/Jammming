@@ -9,7 +9,6 @@ class SearchBar extends React.Component {
         this.handleTermChange = this.handleTermChange.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
         this.handleClick = this.handleClick.bind(this)
-        
     }
     handleClick() {
         this.props.onConnect()
@@ -39,6 +38,7 @@ class SearchBar extends React.Component {
                 <button
                 onClick={this.search}
                 className="SearchButton">SEARCH</button>
+                {this.props.username ? '' : <button className="spotifyButton" onClick={this.props.onConnect}>Connect To Spotify</button>}
             </div>
         )
     }

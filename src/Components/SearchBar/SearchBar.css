@@ -21,7 +21,7 @@
   .SearchBar input:focus {
     outline: none;
   }
-  
+  .spotifyButton,
   .SearchButton {
     margin: 0.6rem;
     cursor: pointer;
@@ -36,22 +36,8 @@
     color: #fff;
     font-weight: 500;
   }
-  
+  .spotifyButton:hover,
   .SearchButton:hover {
     background-color: rgba(108, 65, 233, .7);
   }
 
-  .spotifyButton {
-    margin: 0.6rem;
-    cursor: pointer;
-    width: 8.41rem;
-    padding: .77rem 0;
-    border-radius: 54px;
-    background-color: #010c3f;
-    text-align: center;
-    font-size: .833rem;
-    transition: background-color .25s;
-    border: 0px;
-    color: #fff;
-    font-weight: 500;
-  }

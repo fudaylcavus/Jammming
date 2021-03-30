@@ -1,7 +1,11 @@
 .ProfileDiv {
     display: flex;
     margin: 5em 0 0 0;;
-    max-width: fit-content;
+    min-height: 90px;
+    min-width: fit-content;
+    max-width: 50em;
+    flex-grow: 2;
+    flex-shrink: 0;
     background-color: rgba(128, 0, 128, 0.6);
     border-radius: 50px;
     align-items: center;
@@ -13,4 +17,9 @@
 }
 .ProfileDiv h2 {
     margin: 0 1em
+}
+
+.infoText {
+    margin: 5em 0 0 0;
+    text-align: center;
 }

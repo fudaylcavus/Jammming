@@ -43,3 +43,20 @@
     border: none;
     cursor: pointer;
   }
+
+  .track-info {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .track-info img {
+    margin-right: 15px;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+
+.track-info h3 {
+  font-size: 20px;
+}
