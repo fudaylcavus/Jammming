@@ -8,3 +8,7 @@
 * Music Tracks has its album image
 * Connect with Spotify button
 * User information (image/name) panel
+
+### Preview
+
+![preview](./main.png)
